@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -44,7 +45,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(nameCheck && phoneCheck){
-            Toast.makeText(this, "Form submitted successfully, " + userName + ".", Toast.LENGTH_LONG).show();
+            String key = "name";
+            String value = userName;
+
+            //create intent
+            Intent sendIntent = new Intent(this, ThankYouMessage.class);
+            sendIntent.putExtra(key, value);
+
+            //vertify intent will resolve to activity
+            if (sendIntent.resolveActivity(getPackageManager()) != null){
+                startActivity(sendIntent);
+            }
         }else {
             Toast.makeText(this, "Invalid input, please recheck your details entered.",  Toast.LENGTH_LONG).show();
         }
